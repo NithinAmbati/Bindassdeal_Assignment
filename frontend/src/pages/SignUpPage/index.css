@@ -24,15 +24,6 @@
   padding-left: 10px;
 }
 
-.email {
-  border: 2px solid rgb(226, 226, 226);
-  margin-bottom: 20px;
-  height: 60px;
-  width: 90%;
-  font-weight: bold;
-  padding-left: 10px;
-}
-
 .password {
   border: 2px solid rgb(226, 226, 226);
   margin-bottom: 20px;
