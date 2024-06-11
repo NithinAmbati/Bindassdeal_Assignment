@@ -139,7 +139,10 @@ class Home extends Component {
     return (
       <div className="main-container">
         <div className="main-heading-container">
-          <h2 className="btn">{""}</h2>
+          <h2>
+            <span className="B">B</span>
+            <span className="D">D</span>
+          </h2>
           <h2 className="main-heading">BINDASSDEAL</h2>
           <button className="logout-button" onClick={this.handleLogout}>
             <MdLogout className="logout-icon" />
