@@ -1,19 +1,19 @@
 import React, { Component } from "react";
+import { useLocalStorage } from "../../services/localStorage";
+import { encrypt } from "n-krypta";
+import { Navigate } from "react-router-dom";
 import "./index.css";
+import { isAuthenticated } from "../../middlewares/authentication";
 
 class SignUp extends Component {
   state = {
     username: "",
     password: "",
-    email: "",
+    returnToLogin: false,
   };
 
   onChangeUsername = (event) => {
     this.setState({ username: event.target.value });
-  };
-
-  onChangeEmail = (event) => {
-    this.setState({ email: event.target.value });
   };
 
   onChangePassword = (event) => {
@@ -22,36 +22,21 @@ class SignUp extends Component {
 
   submitBtn = async (event) => {
     event.preventDefault();
-    const { username, password, email } = this.state;
-    const userDetails = { username, password, email };
-    console.log(userDetails);
-    const url = "https://mini-project-nine-rho.vercel.app/register";
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(userDetails),
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) {
-        alert("Registration Successful");
-        this.setState({ username: "", password: "", email: "" });
-      } else {
-        const errorData = await response.json();
-        alert(`Registration Failed: ${errorData.message}`);
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      alert("An error occurred. Please try again later.");
-    }
+    const { setItem } = useLocalStorage(); // LocalStorage functions are imported from useLocalStorage
+    const secretKey = "Bindassdeal";
+    const { username, password } = this.state;
+    const encryptedPassword = encrypt(password, secretKey); //Passwrd is encrypted
+    setItem(username, encryptedPassword); // Storing the username, password in LocalsStorage
+    this.setState({ returnToLogin: true }); // Set returnToLogin to true on successful signup and redirect to login page
   };
 
   render() {
-    const { username, password, email } = this.state;
+    const { username, password } = this.state;
+
+    // Redirect to login page if signup is successful or user is already logged in
+    if (this.state.returnToLogin || isAuthenticated()) {
+      return <Navigate to="/login" />;
+    }
 
     return (
       <div className="login-page">
@@ -63,14 +48,6 @@ class SignUp extends Component {
             placeholder="USERNAME"
             onChange={this.onChangeUsername}
             className="username"
-          />
-          <input
-            type="email"
-            id="email"
-            value={email}
-            placeholder="EMAIL"
-            onChange={this.onChangeEmail}
-            className="email"
           />
           <input
             type="password"

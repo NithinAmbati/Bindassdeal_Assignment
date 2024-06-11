@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
-import Cookie from "js-cookie";
+import { encrypt } from "n-krypta";
 import "./index.css";
+import { useLocalStorage } from "../../services/localStorage";
+import { isAuthenticated, login } from "../../middlewares/authentication";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
-    isLoggedIn: false,
+    redirectToHome: false, // State to handle redirection
   };
 
   onChangeUsername = (event) => {
@@ -19,46 +21,35 @@ class Login extends Component {
   };
 
   loginSuccess = () => {
-    this.setState({ isLoggedIn: true });
+    login();
+    this.setState({ redirectToHome: true }); // Set redirectToHome to true on successful login
   };
 
   loginFailure = () => {
+    this.setState({ username: "", password: "" });
     alert("Incorrect User Details");
   };
 
   submitBtn = async (event) => {
     event.preventDefault();
+    const { getItem } = useLocalStorage(); //importing localStorage functions from useLocalStorage
+    const secretKey = "Bindassdeal";
     const { username, password } = this.state;
-    const userDetails = { username, password };
-    const url = "https://mini-project-nine-rho.vercel.app/login";
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(userDetails),
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) {
-        const { jwtToken } = await response.json();
-        Cookie.set("jwt_token", jwtToken, { expires: 1 });
-        this.loginSuccess();
-      } else {
-        this.loginFailure();
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
+    const encryptedPassword = encrypt(password, secretKey); //Encrypting password
+    const findUser = getItem(username);
+    // Verifying valid user or Not
+    if (findUser === null || encryptedPassword !== JSON.parse(findUser)) {
       this.loginFailure();
+    } else {
+      this.loginSuccess();
     }
   };
 
   render() {
-    const { username, password, isLoggedIn } = this.state;
+    const { username, password, redirectToHome } = this.state;
 
-    if (isLoggedIn) {
+    // Redirect to home page if login is successful
+    if (redirectToHome || isAuthenticated()) {
       return <Navigate to="/" />;
     }
 

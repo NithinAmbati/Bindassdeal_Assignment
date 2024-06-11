@@ -1,0 +1,163 @@
+/* index.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.main-heading-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.main-container {
+  min-height: 100vh;
+  padding-bottom: 220px;
+  margin: 10px;
+}
+
+.main-heading {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: none;
+}
+
+.logout-icon {
+  width: 100%;
+}
+
+h2,
+h3 {
+  text-align: center;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+input[type="text"] {
+  width: 100%;
+  margin: 10px 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th,
+tr {
+  width: 33%;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+.sno {
+  width: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions button {
+  margin: 0 5px;
+}
+
+.add-new-item-container {
+  background-color: black;
+  color: white;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.add-new-item {
+  display: flex;
+  text-align: center;
+  margin: 10px;
+}
+
+.add-new-item input {
+  margin-right: 10px;
+  padding: 15px;
+}
+
+.add-new-item button {
+  height: 60px;
+  width: 140px;
+}
+
+button {
+  margin: 5px;
+}
+
+@media (min-width: 550px) {
+  .main-container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  .add-new-item-container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-container {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+  .add-new-item-container {
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
