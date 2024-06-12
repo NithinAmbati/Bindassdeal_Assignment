@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-This is React project bootstrapped with [create-react-app]
+This is a React project bootstrapped with [create-react-app]
 
 ## Getting started with the project:
 
