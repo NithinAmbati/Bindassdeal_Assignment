@@ -119,6 +119,8 @@ const Home = () => {
       item.category.toLowerCase().includes(search.toLowerCase())
   );
 
+  console.log(isEditing);
+
   return (
     <div className="main-container">
       <div className="main-heading-container">
