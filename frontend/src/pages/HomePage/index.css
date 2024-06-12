@@ -151,8 +151,8 @@ button {
 
 @media (min-width: 992px) {
   .main-container {
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-left: 190px;
+    margin-right: 190px;
   }
   .add-new-item-container {
     padding-left: 200px;
